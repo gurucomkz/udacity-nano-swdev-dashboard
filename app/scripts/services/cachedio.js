@@ -20,7 +20,7 @@ function ($http, $q, cacheStorage, appSettings) {
     {
         var D = $q.defer();
         var _fail = function (why) {
-                console.log(['getCachedFile', fname, 'fail', why]);
+                //console.log(['getCachedFile', fname, 'fail', why]);
                 D.reject();
             },
             _ok = function (data) {
@@ -40,7 +40,7 @@ function ($http, $q, cacheStorage, appSettings) {
             cacheStorage.checkFile(fname)
             .then(_getfile, _fail);
         }catch(e){
-            console.log(['getCachedFile', e]);
+            //console.log(['getCachedFile', e]);
             D.reject();
         }
         return D.promise;
@@ -71,7 +71,7 @@ function ($http, $q, cacheStorage, appSettings) {
             $q.all(conditions)
             .then( _get, _fail );
         }catch(e){
-            console.log(['checkFileCache', e]);
+            //console.log(['checkFileCache', e]);
             D.reject();
         }
         return D.promise;
@@ -168,21 +168,21 @@ function ($http, $q, cacheStorage, appSettings) {
     {
         var D = $q.defer(),
             _success = function(data){
-                console.log(['getFile', '_success', fname]);
+                //console.log(['getFile', '_success', fname]);
                 D.resolve(data);
             },
             _fail = function(){
-                console.log(['getFile', '_fail', fname]);
+                //console.log(['getFile', '_fail', fname]);
                 D.reject();
             },
             _tryFile = function(ownPromise){
                 var _tfD = $q.defer(),
                     __success = function(data){
-                        console.log(['getFile', '_tryFile', '__success', fname]);
+                        //console.log(['getFile', '_tryFile', '__success', fname]);
                         _tfD.resolve(data);
                     },
                     __fail = function(){
-                        console.log(['getFile', '_tryFile', '__fail', fname]);
+                        //console.log(['getFile', '_tryFile', '__fail', fname]);
                         _tfD.reject();
                     },
                     // __nochange = function(){
@@ -194,11 +194,11 @@ function ($http, $q, cacheStorage, appSettings) {
                         .then(ownPromise ? __success : _success, ownPromise ? __fail : _fail);
                     };
 
-                console.log(['getFile', '_tryFile', fname]);
+                //console.log(['getFile', '_tryFile', fname]);
                 try{
                     __goRemote();
                 }catch(e){
-                    console.log(['getFile', '_tryFile', 'EXCEPTION', e.toString()]);
+                    //console.log(['getFile', '_tryFile', 'EXCEPTION', e.toString()]);
                     _fail(e.toString());
                     (ownPromise?__fail:_fail)();
                 }
@@ -213,7 +213,7 @@ function ($http, $q, cacheStorage, appSettings) {
             };
         };
 
-        console.log(['getFile', '_perform', fname, 'test']);
+        //console.log(['getFile', '_perform', fname, 'test']);
 
         if (force){
             _tryFile(true)
