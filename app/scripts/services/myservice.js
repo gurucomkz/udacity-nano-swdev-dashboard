@@ -18,10 +18,12 @@ function ($interval, $rootScope, cachedIO) {
     var issuesPath = 'data/issues.json';
     var employeesPath = 'data/employees.csv';
     var customersPath = 'data/customers.csv';
+    var citiesPath = 'data/cities.json';
 
     this.allIssues = [];
     this.allCustomers = null;
     this.allEmployees = null;
+    this.allCities = null;
 
     this.getAllIssues = function(){
         cachedIO.get(issuesPath, false, !!this.allIssues.length)
@@ -34,32 +36,58 @@ function ($interval, $rootScope, cachedIO) {
         });
     };
 
+    this.getAllCities = function(){
+        cachedIO.get(citiesPath, false, this.allCities !== null)
+        .then(function(data){
+            service.allCities = data;
+            $rootScope.$broadcast('citiesUpdated');
+        });
+    };
+
     this.getAllCustomers = function(){
         cachedIO.get(customersPath, false, this.allCustomers !== null)
         .then(function(data){
-            service.allCustomers = parseCSV(data);
+            service.allCustomers = array2object(parseCSV(data),'id');
+
             $rootScope.$broadcast('customersUpdated');
         });
     };
 
     this.getAllEmployees = function(){
-        cachedIO.get(employeesPath, false, this.addEmployees !== null)
+        cachedIO.get(employeesPath, false, this.allEmployees !== null)
         .then(function(data){
-            service.addEmployees = parseCSV(data);
+            service.allEmployees = array2object(parseCSV(data),'id');
+
             $rootScope.$broadcast('employeesUpdated');
         });
     };
+
+    function checkCityNEmployees(){
+        if(service.allCustomers && service.allEmployees){
+            $rootScope.$broadcast('employeesDataFull');
+        }
+    }
+
+    $rootScope.$on('citiesUpdated', checkCityNEmployees);
+    $rootScope.$on('employeesUpdated', checkCityNEmployees);
 
 
     //init
 
     //utils
     $interval(function(){
-        // service.getAllCustomers();
-        // service.getAllEmployees();
+        service.getAllCustomers();
+        service.getAllEmployees();
+        service.getAllCities();
         service.getAllIssues();
     },1000);
 
+    function array2object(data, keyField){
+        var ret = {};
+        for(var e = 0; e < data.length; e++)
+            ret[data[e][keyField]] = data[e];
+        return ret;
+    }
 
     function parseCSV(data){
         var ret = [],
@@ -75,7 +103,7 @@ function ($interval, $rootScope, cachedIO) {
         {
             var lineExploded = exploded[line].split(';'),
                 entry = {};
-            for(var ki=0; ki<keys.length-1; ki++){
+            for(var ki=0; ki < keys.length; ki++){
                 var key = keys[ki];
                 entry[key] = lineExploded[ki].replace(/^\"/,'').replace(/\"$/,'');
             }

@@ -198,7 +198,7 @@ function ($http, $q, cacheStorage, appSettings) {
                 try{
                     __goRemote();
                 }catch(e){
-                    console.log(['getFile', '_tryFile', 'EXCEPTION', e.toString()])
+                    console.log(['getFile', '_tryFile', 'EXCEPTION', e.toString()]);
                     _fail(e.toString());
                     (ownPromise?__fail:_fail)();
                 }

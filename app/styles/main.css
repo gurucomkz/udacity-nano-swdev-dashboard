@@ -81,3 +81,18 @@ body {
     border-bottom: 0;
   }
 }
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 1000px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+
+.angular-leaflet-map{
+    max-width: 100%;
+    min-width: 300px;
+    width: 100%;
+    height: 400px;
+}

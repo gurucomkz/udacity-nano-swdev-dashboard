@@ -24,8 +24,9 @@
 					<th>{{issue.customerName}}</th>
 					<th>{{issue.customerEmail}}</th>
 					<th>{{issue.status}}</th>
-					<th>{{issue.submissionTimestamp}}</th>
-					<th>{{issue.closedTimestamp}}</th>
+					<th>{{issue.submissionTimestamp|date:'yyyy-MM-dd HH:mm'}}</th>
+						<th ng-if="issue.closedTimestamp">{{issue.closedTimestamp|date:'yyyy-MM-dd HH:mm'}}</th>
+						<th ng-if="!issue.closedTimestamp">No</th>
 					<th>{{issue.employeeName}}</th>
 				</tr>
 		  	</tbody>
