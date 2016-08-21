@@ -13,22 +13,46 @@ angular.module('dashboardApp')
     '$rootScope',
     'myService',
 function ($scope, $rootScope, myService) {
-    $scope.markers = [];
-    // 
-    // $scope.$on('leafletDirectiveMap.popupopen', function(event){
-    //     $scope.eventDetected = "ZoomStart";
-    // });
+    $scope.cities = [];
+    $scope.selectedCity = null;
+    $scope.selectedCityStaff = [];
+    $scope.mapEvents = {
+        map:{
+            enable: ['popupopen', 'popupclose'],
+            logic: 'emit'
+        }
+    };
 
-    $rootScope.$on('employeesDataFull', function(){
-        $scope.markers.length = 0;
-        for(var k in myService.allEmployees){
-            var emp = myService.allEmployees[k],
-                city = myService.allCities[emp.city];
-            $scope.markers.push({
+    $scope.$on('leafletDirectiveMap.popupopen', function(event, marker, dd){
+        $scope.eventDetected = "popupopen";
+        console.log(event)
+        var cityId = marker.leafletObject._popup._source.options.cityId;
+        $scope.selectedCity = myService.allCities[cityId];
+        $scope.selectedCityStaff.length = 0;
+        for(var k in  myService.allEmployees){
+            var emp = myService.allEmployees[k];
+            if(emp.city == cityId){
+                $scope.selectedCityStaff.push(emp)
+            }
+        }
+    });
+
+    $scope.$on('leafletDirectiveMap.popupclose', function(event){
+        $scope.selectedCity = null;
+    });
+
+    $rootScope.$on('citiesUpdated', function(){
+        $scope.cities.length = 0;
+        $scope.selectedCity = null;
+
+        for(var k in myService.allCities){
+            var city = myService.allCities[k];
+            $scope.cities.push({
                 lat: parseFloat(city.lat),
                 lng: parseFloat(city.lon),
-                message: emp.name + ". " + city.name + ", " + city.country,
-                focus: true,
+                cityId: city.id,
+                message: city.name + ', ' + city.country,
+                focus: false,
                 draggable: false
             });
         };

@@ -1,8 +1,16 @@
 <div class="row">
     <div class="col-md-9 col-xs-12">
-        <leaflet markers="markers" ></leaflet>
+        <leaflet markers="cities" event-broadcast="mapEvents"></leaflet>
     </div>
     <div class="col-md-3 col-xs-12">
-        
+        <div ng-if="selectedCity">
+            <h2>{{selectedCity.name}}</h2>
+            <div ng-if="selectedCityStaff.length">
+                <h3>Staff in city</h3>
+                <div ng-repeat="staff in selectedCityStaff">
+                    {{staff.name}}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
