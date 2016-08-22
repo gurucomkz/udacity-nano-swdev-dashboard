@@ -31,33 +31,34 @@
 	<div class="col-md-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Paying customers</h3>
-			</div>
-			<div class="box-body">
-				<div
-					ng-if="payingCustomers.data.length"
-					data-ac-chart="'line'"
-					data-ac-data="payingCustomers"
-					data-ac-config="chartConfigCustomers"
-					id='chart1' class='chart1'>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12">
-		<div class="box">
-			<div class="box-header">
 				<h3 class="box-title">Reported issues</h3>
 			</div>
 			<div class="box-body">
-				<div
-					ng-if="reportedIssues.data.length"
-					data-ac-chart="'bar'"
-					data-ac-data="reportedIssues"
-					data-ac-config="chartConfigIssues"
-					id='chart2' class='chart1'>
-				</div>
+				<ng-morris-bar-chart
+					ng-if="reportedIssuesMorris.data.length"
+					chart-data="reportedIssuesMorris.data"
+					chart-options="reportedIssuesMorris.options"
+					class='chart1'>
+				</ng-morris-bar-chart>
 			</div>
 		</div>
 	</div>
+	
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Paying customers</h3>
+			</div>
+			<div class="box-body">
+				<ng-morris-line-chart
+					ng-if="payingCustomersMorris.data.length"
+					chart-data="payingCustomersMorris.data"
+					chart-options="payingCustomersMorris.options"
+					class='chart1'>
+				</ng-morris-line-chart>
+			</div>
+		</div>
+	</div>
+
+
 </div>

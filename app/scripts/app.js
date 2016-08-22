@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'leaflet-directive',
-    'angularCharts'
+    'angularCharts',
+    'ng-morris-js'
   ])
   .config(function ($routeProvider) {
     $routeProvider

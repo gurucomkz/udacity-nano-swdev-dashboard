@@ -18,26 +18,35 @@ function ($scope , $rootScope, myService) {
         activeCustomers: 0
     };
 
-    $scope.reportedIssues = {
-        "series": [
-            "Open",
-            "Closed"
-        ],
-        "data": []
-    };
-    $scope.payingCustomers =
+    $scope.reportedIssuesMorris =
     {
-        "series": [
-            "Customers"
-        ],
-        "data": []
+        options:{
+            xLabels: "month",
+            xkey: 'month',
+            stacked: true,
+            ykeys: ['open', 'closed'],
+            labels: ["Open", "Closed"]
+        },
+        data: []
+    };
+
+    $scope.payingCustomersMorris =
+    {
+        options:{
+            xLabels: "month",
+            xkey: 'month',
+            ykeys: ['value'],
+            labels: ['Customers']
+        },
+        data: []
     };
 
     function processIssuesData(){
         var monthData = {};
 
-        $scope.reportedIssues.data = [];
+        $scope.reportedIssuesMorris.data = [];
         $scope.stats.openIssues = 0;
+
         for(var x in myService.allIssues){
             var issueEnd = myService.allIssues[x].closedTimestamp * 1000;
 
@@ -54,7 +63,7 @@ function ($scope , $rootScope, myService) {
 
             if(issueEnd){
                 var d = new Date(issueEnd),
-                    dk = d.getFullYear() + '/' + (d.getMonth()+1);
+                    dk = d.getFullYear() + '-' + (d.getMonth()+1);
 
                 if(typeof monthData[dk] === 'undefined')
                     monthData[dk] = { open: 0, closed: 0};
@@ -64,9 +73,10 @@ function ($scope , $rootScope, myService) {
 
         for(var d in monthData){
             var c = monthData[d];
-            $scope.reportedIssues.data.push({
-                x: d,
-                y: [c.open, c.closed]
+            $scope.reportedIssuesMorris.data.push({
+                month: d,
+                open: c.open,
+                closed: c.closed
             })
         }
     }
@@ -74,7 +84,7 @@ function ($scope , $rootScope, myService) {
     function processCustomersData(){
         var monthData = {};
         $scope.stats.activeCustomers = 0;
-        $scope.payingCustomers.data = [];
+        $scope.payingCustomersMorris.data = [];
 
         for(var x in myService.allCustomers){
             var supportEnd = myService.allCustomers[x].supportEnd * 1000;
@@ -86,10 +96,6 @@ function ($scope , $rootScope, myService) {
             var d = new Date(myService.allCustomers[x].supportStart*1000),
                 de = supportEnd ? new Date(supportEnd) : new Date();
 
-            if(d > de) {
-                debugger;
-                return;
-            }
             d.setDate(1);
             do{
                 var dk = d/1;
@@ -113,9 +119,10 @@ function ($scope , $rootScope, myService) {
             var d = _monthData[_dd][0],
                 c = _monthData[_dd][1],
                 dObj = new Date(d);
-            $scope.payingCustomers.data.push({
-                x: dObj.getFullYear() + '/' + (dObj.getMonth()+1),
-                y: [c]
+
+            $scope.payingCustomersMorris.data.push({
+                month: dObj.getFullYear() + '-' + (dObj.getMonth()+1),
+                value: c
             })
         }
     }
@@ -127,25 +134,5 @@ function ($scope , $rootScope, myService) {
     $rootScope.$on('customersUpdated', processCustomersData);
     if(myService.allCustomers)
         processCustomersData();
-
-    $scope.chartConfigCustomers = $scope.chartConfigIssues = {
-        xAxisMaxTicks: 7,
-        //waitForHeightAndWidth:true,
-        title: false,
-        tooltips: true,
-        labels: false,
-        mouseover: function() {},
-        mouseout: function() {},
-        click: function() {},
-        legend: {
-            display: true,
-            //could be 'left, right'
-            position: 'left'
-        },
-        innerRadius: 0, // applicable on pieCharts, can be a percentage like '50%'
-        lineLegend: 'lineEnd' // can be also 'traditional'
-    };
-
-
 
 }]);
