@@ -4,45 +4,87 @@
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body">
-		<table class="table table-bordered table-striped">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Title</th>
-					<th>Customer Name</th>
-					<th>Customer Email</th>
-					<th>Status</th>
-					<th>Submitted</th>
-					<th>Closed Time</th>
-					<th>Employee</th>
-				</tr>
-			</thead>
-		  	<tbody>
-				<tr ng-repeat="issue in issues">
-					<th>{{issue.issueId}}</th>
-					<th>{{issue.title}}</th>
-					<th>{{issue.customerName}}</th>
-					<th>{{issue.customerEmail}}</th>
-					<th>{{issue.status}}</th>
-					<th>{{issue.submissionTimestamp|date:'yyyy-MM-dd HH:mm'}}</th>
-						<th ng-if="issue.closedTimestamp">{{issue.closedTimestamp|date:'yyyy-MM-dd HH:mm'}}</th>
-						<th ng-if="!issue.closedTimestamp">No</th>
-					<th>{{issue.employeeName}}</th>
-				</tr>
-		  	</tbody>
-		  	<tfoot>
-				<tr>
-					<th>Id</th>
-					<th>Title</th>
-					<th>Customer Name</th>
-					<th>Customer Email</th>
-					<th>Status</th>
-					<th>Submitted</th>
-					<th>Closed Time</th>
-					<th>Employee</th>
-				</tr>
-		  	</tfoot>
-		</table>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="dataTables_length">
+					<label>Show
+						<select class="form-control input-sm"
+								ng-options="item for item in [10,25,50,100]"
+								ng-model="displayNumber"></select>
+						entries
+					</label>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="dataTables_filter">
+					<label>Search:<input type="search" class="form-control input-sm" placeholder="Filter" ng-model="filterText"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<table class="table dataTable table-bordered table-striped">
+					<thead>
+						<tr>
+							<th dt-sorting="issueId" sort-field="sortingField" sort-direction="sortingDirection">Id</th>
+							<th dt-sorting="title" sort-field="sortingField" sort-direction="sortingDirection">Title</th>
+							<th dt-sorting="customerName" sort-field="sortingField" sort-direction="sortingDirection">Customer Name</th>
+							<th dt-sorting="customerEmail" sort-field="sortingField" sort-direction="sortingDirection">Customer Email</th>
+							<th dt-sorting="status" sort-field="sortingField" sort-direction="sortingDirection">Status</th>
+							<th dt-sorting="submissionTimestamp" sort-field="sortingField" sort-direction="sortingDirection">Submitted</th>
+							<th dt-sorting="closedTimestamp" sort-field="sortingField" sort-direction="sortingDirection">Closed Time</th>
+							<th dt-sorting="employeeId" sort-field="sortingField" sort-direction="sortingDirection">Employee</th>
+						</tr>
+					</thead>
+				  	<tbody>
+						<tr ng-repeat="issue in displayIssues">
+							<td>{{issue.issueId}}</td>
+							<td>{{issue.title}}</td>
+							<td>{{issue.customerName}}</td>
+							<td>{{issue.customerEmail}}</td>
+							<td>{{issue.status}}</td>
+							<td>{{issue.submissionTimestamp*1000|date:'yyyy-MM-dd HH:mm'}}</td>
+								<td ng-if="issue.closedTimestamp">{{issue.closedTimestamp*1000|date:'yyyy-MM-dd HH:mm'}}</td>
+								<td ng-if="!issue.closedTimestamp">No</td>
+							<td>{{issue.employeeName}}</td>
+						</tr>
+				  	</tbody>
+				  	<tfoot>
+						<tr>
+							<th>Id</th>
+							<th>Title</th>
+							<th>Customer Name</th>
+							<th>Customer Email</th>
+							<th>Status</th>
+							<th>Submitted</th>
+							<th>Closed Time</th>
+							<th>Employee</th>
+						</tr>
+				  	</tfoot>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="dataTables_info">Showing {{displayStart+1}} to {{displayEnd}} of {{filteredTotal}} entries</div>
+			</div>
+			<div class="col-sm-7">
+				<div class="dataTables_paginate paging_simple_numbers">
+					<ul class="pagination">
+						<li class="paginate_button previous" ng-class="{'disabled': displayPage < 2}">
+							<a ng-click="setPage(displayPage-1)">Previous</a>
+						</li>
+						<li class="paginate_button"
+							ng-repeat="page in displayPagerPages"
+							ng-class="{'active' : page==displayPage}">
+							<a ng-click="setPage(page)">{{page}}</a>
+						</li>
+
+						<li class="paginate_button next" ng-class="{'disabled': displayPageCount <= displayPage}"><a ng-click="setPage(displayPage+1)">Next</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- /.box-body -->
 </div>
