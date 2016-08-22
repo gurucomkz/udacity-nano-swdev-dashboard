@@ -28,21 +28,25 @@
 						<tr>
 							<th dt-sorting="issueId" sort-field="sortingField" sort-direction="sortingDirection">Id</th>
 							<th dt-sorting="title" sort-field="sortingField" sort-direction="sortingDirection">Title</th>
-							<th dt-sorting="customerName" sort-field="sortingField" sort-direction="sortingDirection">Customer Name</th>
-							<th dt-sorting="customerEmail" sort-field="sortingField" sort-direction="sortingDirection">Customer Email</th>
-							<th dt-sorting="status" sort-field="sortingField" sort-direction="sortingDirection">Status</th>
-							<th dt-sorting="submissionTimestamp" sort-field="sortingField" sort-direction="sortingDirection">Submitted</th>
-							<th dt-sorting="closedTimestamp" sort-field="sortingField" sort-direction="sortingDirection">Closed Time</th>
-							<th dt-sorting="employeeId" sort-field="sortingField" sort-direction="sortingDirection">Employee</th>
+							<th class="hidden-xs" dt-sorting="customerName" sort-field="sortingField" sort-direction="sortingDirection">Customer</th>
+							<th class="hidden-xs" dt-sorting="status" sort-field="sortingField" sort-direction="sortingDirection">Status</th>
+							<th dt-sorting="submissionTimestamp" sort-field="sortingField" sort-direction="sortingDirection">Opened</th>
+							<th dt-sorting="closedTimestamp" sort-field="sortingField" sort-direction="sortingDirection">Closed</th>
+							<th dt-sorting="employeeId" sort-field="sortingField" sort-direction="sortingDirection">Staff</th>
 						</tr>
 					</thead>
 				  	<tbody>
-						<tr ng-repeat="issue in displayIssues">
+						<tr ng-repeat="issue in displayIssues" class="issue-status-{{issue.status}}">
 							<td>{{issue.issueId}}</td>
-							<td>{{issue.title}}</td>
-							<td>{{issue.customerName}}</td>
-							<td>{{issue.customerEmail}}</td>
-							<td>{{issue.status}}</td>
+							<td><span class="data-issue-title">{{issue.title}}</span>
+								<span class="visible-xs data-customer-name">{{issue.customerName}}</span>
+								<span class="visible-xs data-customer-email">{{issue.customerEmail}}</span>
+							</td>
+							<td class="hidden-xs">
+								<span class="data-customer-name">{{issue.customerName}}</span>
+								<span class="data-customer-email">{{issue.customerEmail}}</span>
+							</td>
+							<td class="hidden-xs">{{issue.status}}</td>
 							<td>{{issue.submissionTimestamp*1000|date:'yyyy-MM-dd HH:mm'}}</td>
 								<td ng-if="issue.closedTimestamp">{{issue.closedTimestamp*1000|date:'yyyy-MM-dd HH:mm'}}</td>
 								<td ng-if="!issue.closedTimestamp">No</td>
@@ -53,12 +57,11 @@
 						<tr>
 							<th>Id</th>
 							<th>Title</th>
-							<th>Customer Name</th>
-							<th>Customer Email</th>
-							<th>Status</th>
-							<th>Submitted</th>
-							<th>Closed Time</th>
-							<th>Employee</th>
+							<th class="hidden-xs">Customer</th>
+							<th class="hidden-xs">Status</th>
+							<th>Opened</th>
+							<th>Closed</th>
+							<th>Staff</th>
 						</tr>
 				  	</tfoot>
 				</table>

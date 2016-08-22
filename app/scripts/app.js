@@ -9,34 +9,31 @@
  * Main module of the application.
  */
 angular
-  .module('dashboardApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
+.module('dashboardApp', [
     'ngRoute',
-    'ngSanitize',
-    'ngTouch',
     'leaflet-directive',
     'ng-morris-js'
-  ])
-  .config(function ($routeProvider) {
+])
+.config([
+    '$routeProvider',
+function ($routeProvider) {
     $routeProvider
-      .when('/', {
+    .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
-      })
-      .when('/data', {
+    })
+    .when('/data', {
         templateUrl: 'views/data.html',
         controller: 'DataCtrl',
         controllerAs: 'data'
-      })
-      .when('/metrics', {
+    })
+    .when('/metrics', {
         templateUrl: 'views/metrics.html',
         controller: 'MetricsCtrl',
         controllerAs: 'metrics'
-      })
-      .otherwise({
+    })
+    .otherwise({
         redirectTo: '/'
-      });
-  });
+    });
+}]);
