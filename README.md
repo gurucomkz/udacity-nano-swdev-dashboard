@@ -16,3 +16,8 @@ App will detect changes and show them on the dashboard.
 Do `npm install` and `bower install` to prepare dependencies.
 
 Run `grunt` for building and `grunt serve` for preview.
+
+## Credits
+
+Some styles were taken from AdminLTE template by [Almsaeed Studio](http://almsaeedstudio.com).
+ 
