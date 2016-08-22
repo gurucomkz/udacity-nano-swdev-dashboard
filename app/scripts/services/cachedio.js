@@ -19,7 +19,7 @@ function ($http, $q, cacheStorage, appSettings) {
     this.getCachedFile = function(fname)
     {
         var D = $q.defer();
-        var _fail = function (why) {
+        var _fail = function (/*why*/) {
                 //console.log(['getCachedFile', fname, 'fail', why]);
                 D.reject();
             },

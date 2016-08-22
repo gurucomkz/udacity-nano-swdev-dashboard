@@ -1,0 +1,63 @@
+
+<!-- the number of open issues,
+	a line chart reflecting number of paying customers over a period of time,
+	a bar chart reflecting number of reported issues over a period of time.
+-->
+
+<div class="row">
+	<div class="col-sm-4 col-xs-12">
+		<div class="info-box">
+		  <!-- Apply any bg-* class to to the icon to color it -->
+		  <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+		  <div class="info-box-content">
+		    <span class="info-box-text">Open Issues</span>
+		    <span class="info-box-number">{{stats.openIssues}}</span>
+		  </div><!-- /.info-box-content -->
+		</div><!-- /.info-box -->
+	</div>
+	<div class="col-sm-4 col-xs-12">
+		<div class="info-box">
+		  <!-- Apply any bg-* class to to the icon to color it -->
+		  <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+		  <div class="info-box-content">
+		    <span class="info-box-text">Active Customers</span>
+		    <span class="info-box-number">{{stats.activeCustomers}}</span>
+		  </div><!-- /.info-box-content -->
+		</div><!-- /.info-box -->
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Paying customers</h3>
+			</div>
+			<div class="box-body">
+				<div
+					ng-if="payingCustomers.data.length"
+					data-ac-chart="'line'"
+					data-ac-data="payingCustomers"
+					data-ac-config="chartConfigCustomers"
+					id='chart1' class='chart1'>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Reported issues</h3>
+			</div>
+			<div class="box-body">
+				<div
+					ng-if="reportedIssues.data.length"
+					data-ac-chart="'bar'"
+					data-ac-data="reportedIssues"
+					data-ac-config="chartConfigIssues"
+					id='chart2' class='chart1'>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

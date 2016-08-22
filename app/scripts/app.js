@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'leaflet-directive'
+    'leaflet-directive',
+    'angularCharts'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -29,6 +30,11 @@ angular
         templateUrl: 'views/data.html',
         controller: 'DataCtrl',
         controllerAs: 'data'
+      })
+      .when('/metrics', {
+        templateUrl: 'views/metrics.html',
+        controller: 'MetricsCtrl',
+        controllerAs: 'metrics'
       })
       .otherwise({
         redirectTo: '/'

@@ -84,8 +84,9 @@ function ($interval, $rootScope, cachedIO) {
 
     function array2object(data, keyField){
         var ret = {};
-        for(var e = 0; e < data.length; e++)
+        for(var e = 0; e < data.length; e++){
             ret[data[e][keyField]] = data[e];
+        }
         return ret;
     }
 
@@ -104,8 +105,12 @@ function ($interval, $rootScope, cachedIO) {
             var lineExploded = exploded[line].split(';'),
                 entry = {};
             for(var ki=0; ki < keys.length; ki++){
-                var key = keys[ki];
-                entry[key] = lineExploded[ki].replace(/^\"/,'').replace(/\"$/,'');
+                var key = keys[ki],
+                    strVal = lineExploded[ki].replace(/^\"/,'').replace(/\"$/,'');
+                if(strVal.match(/^-?\d+(\.\d+)?$/))
+                    entry[key] = parseFloat(strVal);
+                else
+                    entry[key] = strVal;
             }
             ret.push(entry);
         }
