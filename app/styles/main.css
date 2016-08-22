@@ -48,7 +48,7 @@ body {
     /* Space out the masthead */
 
     .map-users-list{
-        height: 400px;
+        min-height: 400px;
     }
 
     .content-wrapper, .right-side, .main-footer{
@@ -86,4 +86,9 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+
+.users-list > li img{
+    width: 90px;
 }
