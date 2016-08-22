@@ -25,6 +25,14 @@ writeCSV(__DIR__.'/../app/data/customers.csv', $allCustomers);
 writeCSV(__DIR__.'/../app/data/employees.csv', $allEmployees);
 writeJSON(__DIR__.'/../app/data/issues.json', $allIssues);
 
+if(is_dir(__DIR__.'/../dist')){
+	@mkdir(__DIR__.'/../dist/data', 0777);
+	writeJSON(__DIR__.'/../dist/data/cities.json', $usedCities);
+	writeCSV(__DIR__.'/../dist/data/customers.csv', $allCustomers);
+	writeCSV(__DIR__.'/../dist/data/employees.csv', $allEmployees);
+	writeJSON(__DIR__.'/../dist/data/issues.json', $allIssues);
+}
+
 
 //functions
 function genEmployees(){
