@@ -32,10 +32,12 @@ function genEmployees(){
 	$ret = [];
 
 	for($x = 0; $x < $numberEmployees; $x++){
+		$ava = "data/images/user".(rand(1,8)).".jpg";
 		$city = $usedCities[rand(1, count($usedCities))];
 		$ret[] = [
 			"id" => $x+1,
 			"name" => _genName(),
+			"avatar" => $ava,
 			"city" => $city["id"]
 		];
 	}
@@ -46,13 +48,26 @@ function genCustomers(){
 	global $numberClients;
 	$ret = [];
 
+
 	for($x = 0; $x < $numberClients; $x++){
+		$monthsPayed = rand(0, 30);
+		$terminatedNow = rand(0,1);
+		$monthsNonPayed = $terminatedNow ? rand(0, 10) : 0;
+		$month = 86400*30;
+
+		$start = time() - $monthsNonPayed * $month - $monthsPayed * $month;
+		$end = $terminatedNow ? time() - $monthsNonPayed * $month : 0;
+
+
 		$name = _genName();
 		$email = _genEmail($name);
 
 		$ret[] = [
+			"id" => $x+1,
 			"name" => $name,
-			"email" => $email
+			"email" => $email,
+			"supportStart" => $start,
+			"supportEnd" => $end
 		];
 	}
 	return $ret;
@@ -98,7 +113,7 @@ function genIssues(){
 
 function newIssue(){
 	global $allEmployees, $allCustomers;
-	$startDiff = rand(0, 10000000);
+	$startDiff = rand(0, 100000000);
 	$status = rand(0,1) ? 'open' : 'closed';
 	$end = $status == 'open' ? 0 : time() - ($startDiff - rand(500, $startDiff));
 
