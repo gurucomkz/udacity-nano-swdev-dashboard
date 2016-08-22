@@ -31,8 +31,6 @@ module.exports = function(config) {
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/leaflet/dist/leaflet-src.js',
       'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
-      'bower_components/d3/d3.js',
-      'bower_components/angular-charts/dist/angular-charts.js',
       'bower_components/eve/eve.js',
       'bower_components/raphael/raphael.min.js',
       'bower_components/mocha/mocha.js',
