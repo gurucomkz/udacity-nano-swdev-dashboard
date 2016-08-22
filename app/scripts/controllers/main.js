@@ -25,14 +25,14 @@ function ($scope, $rootScope, myService) {
     };
 
     $scope.$on('leafletDirectiveMap.popupopen', function(event, marker){
-        $scope.eventDetected = "popupopen";
+        $scope.eventDetected = 'popupopen';
 
         var cityId = marker.leafletObject._popup._source.options.cityId;
         $scope.selectedCity = myService.allCities[cityId];
         $scope.selectedCityStaff.length = 0;
         for(var k in  myService.allEmployees){
             var emp = myService.allEmployees[k];
-            if(emp.city == cityId){
+            if(emp.city === cityId){
                 $scope.selectedCityStaff.push(emp);
             }
         }
@@ -41,12 +41,6 @@ function ($scope, $rootScope, myService) {
     $scope.$on('leafletDirectiveMap.popupclose', function(){
         $scope.selectedCity = null;
     });
-
-    $rootScope.$on('citiesUpdated', processData);
-    if(myService.allCities)
-    {
-        processData();
-    }
 
     function processData(){
         $scope.cities.length = 0;
@@ -73,4 +67,12 @@ function ($scope, $rootScope, myService) {
         $scope.stats.cityCount = $scope.cities.length;
         $scope.stats.staffCount = Object.keys(myService.allEmployees).length;
     }
+
+    $rootScope.$on('citiesUpdated', processData);
+    if(myService.allCities)
+    {
+        processData();
+    }
+
+
 }]);

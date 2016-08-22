@@ -22,11 +22,11 @@ function ($scope , $rootScope, myService) {
     {
         options:{
             resize: true,
-            xLabels: "month",
+            xLabels: 'month',
             xkey: 'month',
             stacked: true,
             ykeys: ['open', 'closed'],
-            labels: ["Open", "Closed"]
+            labels: ['Open', 'Closed']
         },
         data: []
     };
@@ -35,7 +35,7 @@ function ($scope , $rootScope, myService) {
     {
         options:{
             resize: true,
-            xLabels: "month",
+            xLabels: 'month',
             xkey: 'month',
             ykeys: ['value'],
             labels: ['Customers']
@@ -52,34 +52,36 @@ function ($scope , $rootScope, myService) {
         for(var x in myService.allIssues){
             var issueEnd = myService.allIssues[x].closedTimestamp * 1000;
 
-            if(myService.allIssues[x].status == 'open'){
+            if(myService.allIssues[x].status === 'open'){
                 $scope.stats.openIssues++;
             }
 
             var d = new Date(myService.allIssues[x].submissionTimestamp * 1000),
                 dk = d.getFullYear() + '-' + (d.getMonth()+1);
 
-            if(typeof monthData[dk] === 'undefined')
+            if(typeof monthData[dk] === 'undefined'){
                 monthData[dk] = { open: 0, closed: 0};
+            }
             monthData[dk].open++;
 
             if(issueEnd){
-                var d = new Date(issueEnd),
-                    dk = d.getFullYear() + '-' + (d.getMonth()+1);
+                var de = new Date(issueEnd),
+                    dke = de.getFullYear() + '-' + (de.getMonth()+1);
 
-                if(typeof monthData[dk] === 'undefined')
-                    monthData[dk] = { open: 0, closed: 0};
-                monthData[dk].closed++;
+                if(typeof monthData[dke] === 'undefined'){
+                    monthData[dke] = { open: 0, closed: 0};
+                }
+                monthData[dke].closed++;
             }
         }
 
-        for(var d in monthData){
-            var c = monthData[d];
+        for(var deKey in monthData){
+            var c = monthData[deKey];
             $scope.reportedIssuesMorris.data.push({
-                month: d,
+                month: deKey,
                 open: c.open,
                 closed: c.closed
-            })
+            });
         }
     }
 
@@ -102,39 +104,41 @@ function ($scope , $rootScope, myService) {
             do{
                 var dk = d/1;
 
-                if(typeof monthData[dk] === 'undefined')
+                if(typeof monthData[dk] === 'undefined'){
                     monthData[dk] = 0;
+                }
 
                 monthData[dk]++;
-                d.setMonth(d.getMonth() + 1)
+                d.setMonth(d.getMonth() + 1);
             }while(d < de);
         }
         var _monthData = [];
-        for(var d in monthData){
-            var c = monthData[d];
-            _monthData.push([ parseInt(d), c ]);
+        for(var deKey in monthData){
+            var c = monthData[deKey];
+            _monthData.push([ parseInt(deKey), c ]);
         }
         _monthData.sort(function(a,b){
             return a[0] - b[0];
-        })
+        });
         for(var _dd in _monthData){
-            var d = _monthData[_dd][0],
-                c = _monthData[_dd][1],
-                dObj = new Date(d);
+            var dVal = _monthData[_dd][1],
+                dObj = new Date(_monthData[_dd][0]);
 
             $scope.payingCustomersMorris.data.push({
                 month: dObj.getFullYear() + '-' + (dObj.getMonth()+1),
-                value: c
-            })
+                value: dVal
+            });
         }
     }
 
     $rootScope.$on('issuesUpdated', processIssuesData);
-    if(myService.allIssues)
+    if(myService.allIssues){
         processIssuesData();
+    }
 
     $rootScope.$on('customersUpdated', processCustomersData);
-    if(myService.allCustomers)
+    if(myService.allCustomers){
         processCustomersData();
+    }
 
 }]);

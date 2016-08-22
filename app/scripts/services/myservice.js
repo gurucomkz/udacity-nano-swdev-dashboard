@@ -107,10 +107,11 @@ function ($interval, $rootScope, cachedIO) {
             for(var ki=0; ki < keys.length; ki++){
                 var key = keys[ki],
                     strVal = lineExploded[ki].replace(/^\"/,'').replace(/\"$/,'');
-                if(strVal.match(/^-?\d+(\.\d+)?$/))
+                if(strVal.match(/^-?\d+(\.\d+)?$/)){
                     entry[key] = parseFloat(strVal);
-                else
+                }else{
                     entry[key] = strVal;
+                }
             }
             ret.push(entry);
         }
