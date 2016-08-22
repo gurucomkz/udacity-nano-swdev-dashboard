@@ -32,3 +32,18 @@ I recommend to test this way:
 
 Some styles were taken from AdminLTE template by [Almsaeed Studio](http://almsaeedstudio.com).
  
+## Environment
+
+`Darwin MacSSH.local 15.6.0 Darwin Kernel Version 15.6.0: Thu Jun 23 18:25:34 PDT 2016; root:xnu-3248.60.10~1/RELEASE_X86_64 x86_64`
+
+npm 3.10.6
+
+bower 1.7.9
+
+grunt-cli v1.2.0
+
+grunt v0.4.5
+
+PHP 5.5.36
+
+GNU bash, version 3.2.57(1)-release (x86_64-apple-darwin15)
