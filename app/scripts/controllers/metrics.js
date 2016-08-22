@@ -55,7 +55,7 @@ function ($scope , $rootScope, myService) {
             }
 
             var d = new Date(myService.allIssues[x].submissionTimestamp * 1000),
-                dk = d.getFullYear() + '/' + (d.getMonth()+1);
+                dk = d.getFullYear() + '-' + (d.getMonth()+1);
 
             if(typeof monthData[dk] === 'undefined')
                 monthData[dk] = { open: 0, closed: 0};
