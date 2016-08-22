@@ -33,7 +33,7 @@
 			<div class="box-header">
 				<h3 class="box-title">Reported issues</h3>
 			</div>
-			<div class="box-body">
+			<div class="box-body no-padding">
 				<ng-morris-bar-chart
 					ng-if="reportedIssuesMorris.data.length"
 					chart-data="reportedIssuesMorris.data"
@@ -43,13 +43,13 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="col-md-12">
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Paying customers</h3>
 			</div>
-			<div class="box-body">
+			<div class="box-body no-padding">
 				<ng-morris-line-chart
 					ng-if="payingCustomersMorris.data.length"
 					chart-data="payingCustomersMorris.data"

@@ -21,6 +21,7 @@ function ($scope , $rootScope, myService) {
     $scope.reportedIssuesMorris =
     {
         options:{
+            resize: true,
             xLabels: "month",
             xkey: 'month',
             stacked: true,
@@ -33,6 +34,7 @@ function ($scope , $rootScope, myService) {
     $scope.payingCustomersMorris =
     {
         options:{
+            resize: true,
             xLabels: "month",
             xkey: 'month',
             ykeys: ['value'],
