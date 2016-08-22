@@ -1,14 +1,67 @@
 <div class="row">
-    <div class="col-md-9 col-xs-12">
-        <leaflet markers="cities" event-broadcast="mapEvents"></leaflet>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Total Staff</span>
+                <span class="info-box-number">{{stats.staffCount}}</span>
+            </div>
+        </div>
     </div>
-    <div class="col-md-3 col-xs-12">
-        <div ng-if="selectedCity">
-            <h2>{{selectedCity.name}}</h2>
-            <div ng-if="selectedCityStaff.length">
-                <h3>Staff in city</h3>
-                <div ng-repeat="staff in selectedCityStaff">
-                    {{staff.name}}
+
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-flag"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Cities</span>
+                <span class="info-box-number">{{stats.cityCount}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-globe"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Countries</span>
+                <span class="info-box-number">{{stats.countryCount}}</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Staff map</h3>
+			</div>
+			<div class="box-body no-padding">
+                <div class="row no-margin">
+                    <div class="col-md-8 col-xs-12 no-padding">
+
+                        <leaflet markers="cities" event-broadcast="mapEvents"></leaflet>
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 no-padding">
+                        <div class="pad box-pane-right bg-green map-users-list">
+                            <div ng-if="selectedCity">
+                                <h2 class="box-title">{{selectedCity.name}}, {{selectedCity.country}}</h2>
+                                <div ng-if="selectedCityStaff.length">
+                                    <h3>Staff in city</h3>
+                                    <ul ul class="users-list clearfix">
+                                        <li ng-repeat="staff in selectedCityStaff">
+                                            <img ng-src="{{staff.avatar}}" alt="{{staff.name}}"  title="{{staff.name}}">
+                                            <a class="users-list-name" title="{{staff.name}}" href="#">{{staff.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div ng-if="!selectedCity" class="description-block margin-bottom">
+                                <span class="description-text">Choose city to get personnel details</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

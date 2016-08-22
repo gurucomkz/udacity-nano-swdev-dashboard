@@ -14,6 +14,7 @@ angular.module('dashboardApp')
     'myService',
 function ($scope, $rootScope, myService) {
     $scope.cities = [];
+    $scope.stats = {};
     $scope.selectedCity = null;
     $scope.selectedCityStaff = [];
     $scope.mapEvents = {
@@ -23,26 +24,34 @@ function ($scope, $rootScope, myService) {
         }
     };
 
-    $scope.$on('leafletDirectiveMap.popupopen', function(event, marker, dd){
+    $scope.$on('leafletDirectiveMap.popupopen', function(event, marker){
         $scope.eventDetected = "popupopen";
-        console.log(event)
+
         var cityId = marker.leafletObject._popup._source.options.cityId;
         $scope.selectedCity = myService.allCities[cityId];
         $scope.selectedCityStaff.length = 0;
         for(var k in  myService.allEmployees){
             var emp = myService.allEmployees[k];
             if(emp.city == cityId){
-                $scope.selectedCityStaff.push(emp)
+                $scope.selectedCityStaff.push(emp);
             }
         }
     });
 
-    $scope.$on('leafletDirectiveMap.popupclose', function(event){
+    $scope.$on('leafletDirectiveMap.popupclose', function(){
         $scope.selectedCity = null;
     });
 
-    $rootScope.$on('citiesUpdated', function(){
+    $rootScope.$on('citiesUpdated', processData);
+    if(myService.allCities)
+    {
+        processData();
+    }
+
+    function processData(){
         $scope.cities.length = 0;
+        $scope.stats.countryCount = 0;
+        $scope.stats.countries = {};
         $scope.selectedCity = null;
 
         for(var k in myService.allCities){
@@ -55,6 +64,13 @@ function ($scope, $rootScope, myService) {
                 focus: false,
                 draggable: false
             });
-        };
-    });
+            if(typeof $scope.stats.countries[city.country] === 'undefined'){
+                $scope.stats.countries[city.country] = 0;
+                $scope.stats.countryCount++;
+            }
+            $scope.stats.countries[city.country]++;
+        }
+        $scope.stats.cityCount = $scope.cities.length;
+        $scope.stats.staffCount = Object.keys(myService.allEmployees).length;
+    }
 }]);
