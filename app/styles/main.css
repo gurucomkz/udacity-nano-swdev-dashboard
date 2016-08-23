@@ -26,6 +26,20 @@ body {
     font-weight: bold;
 }
 
+
+
+.chart1{
+    width: 100%;
+    min-height: 80vw;
+    overflow: auto;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 468px) {
+    .chart1{
+        min-height: 70vh;
+    }
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .data-issue-title{
@@ -54,6 +68,10 @@ body {
     .content-wrapper, .right-side, .main-footer{
         margin-left: 0;
     }
+
+    .chart1{
+        min-height: 400px;
+    }
 }
 
 /* Responsive: Portrait tablets and up */
@@ -73,11 +91,6 @@ body {
     height: 400px;
 }
 
-.chart1{
-    width: 100%;
-    min-height: 400px;
-    overflow: auto;
-}
 
 
 .data-customer-name,
