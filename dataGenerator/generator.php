@@ -40,7 +40,7 @@ function genEmployees(){
 	$ret = [];
 
 	for($x = 0; $x < $numberEmployees; $x++){
-		$ava = "images/user".(rand(1,8)).".jpg";
+		$ava = "images/ignore/user".(rand(1,8)).".jpg";
 		$city = $usedCities[rand(1, count($usedCities))];
 		$ret[] = [
 			"id" => $x+1,
