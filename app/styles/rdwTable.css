@@ -1,0 +1,39 @@
+/*
+	http://exisweb.net/responsive-table-plugins-and-patterns
+	#10. Codepen (Geoff Yuen)
+	No Javascript, but requires data attributes to be entered into each cell.
+*/
+@media screen and (max-width: 720px) {
+	.rwd-table {
+	    margin: 1em 0;
+	    min-width: 300px; // adjust to your needs
+	}
+	.rwd-table tbody tr {
+	    border-top: 1px solid #ddd;
+	    border-bottom: 1px solid #ddd;
+	}
+
+	.rwd-table thead th {
+	    display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!
+	}
+
+	.rwd-table tbody tr td {
+	    display: block;
+		border: 0 !important;
+		padding: 0 8px;
+	}
+	.rwd-table tbody tr td:first-child {
+	    padding-top: .5em;
+	}
+	.rwd-table tbody tr td:last-child {
+	    padding-bottom: .5em;
+	}
+
+	.rwd-table tbody tr td:before {
+	    content: attr(data-th)": ";
+	    font-weight: bold !important;
+	    width: 6.5em;
+	    display: inline-block;
+	}
+
+}

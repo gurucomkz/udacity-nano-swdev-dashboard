@@ -79,7 +79,6 @@ function ($scope, myService, $rootScope) {
         }else{
             $scope.sortingDirection = ($scope.sortingDirection === 'asc') ? 'desc' : 'asc';
         }
-        performSorting();
     };
 
     $scope.setPage = function(toPage){
@@ -89,6 +88,9 @@ function ($scope, myService, $rootScope) {
 
     $scope.$watch('displayNumber', fixDisplay);
     $scope.$watch('filterText', fixFilter);
+
+    $scope.$watch('sortingField', performSorting);
+    $scope.$watch('sortingDirection', performSorting);
 
     $rootScope.$on('issuesUpdated', function(){
         issues = myService.allIssues;

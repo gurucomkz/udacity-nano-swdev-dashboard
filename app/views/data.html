@@ -20,16 +20,37 @@
 					<label>Search:<input type="search" class="form-control input-sm" placeholder="Filter" ng-model="filterText"></label>
 				</div>
 			</div>
+			<div class="col-sm-12 visible-xs">
+				<div class="dataTables_filter">
+					<label>Sort by:
+						<select class="form-control input-sm" ng-model="sortingField">
+							<option value="issueId">Issue Id</option>
+							<option value="title">Title</option>
+							<option value="customerName">Customer</option>
+							<option value="customerEmail">Email</option>
+							<option value="status">Status</option>
+							<option value="submissionTimestamp">Opened</option>
+							<option value="closedTimestamp">Closed</option>
+							<option value="employeeId">Staff</option>
+						</select>
+					</label>
+					<div class="btn-group">
+						<button type="button" class="btn btn-sm" ng-class="sortingDirection=='asc'?'btn-info':'btn-default'" ng-click="sortingDirection='asc'">ASC</button>
+						<button type="button" class="btn btn-sm" ng-class="sortingDirection!='asc'?'btn-info':'btn-default'" ng-click="sortingDirection='desc'">DESC</button>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<table class="table dataTable table-bordered table-striped">
+				<table class="table dataTable table-bordered table-striped rwd-table">
 					<thead>
 						<tr>
 							<th dt-sorting="issueId" sort-field="sortingField" sort-direction="sortingDirection">Id</th>
 							<th dt-sorting="title" sort-field="sortingField" sort-direction="sortingDirection">Title</th>
-							<th class="hidden-xs" dt-sorting="customerName" sort-field="sortingField" sort-direction="sortingDirection">Customer</th>
-							<th class="hidden-xs" dt-sorting="status" sort-field="sortingField" sort-direction="sortingDirection">Status</th>
+							<th dt-sorting="customerName" sort-field="sortingField" sort-direction="sortingDirection">Customer</th>
+							<th dt-sorting="customerEmail" sort-field="sortingField" sort-direction="sortingDirection">Email</th>
+							<th dt-sorting="status" sort-field="sortingField" sort-direction="sortingDirection">Status</th>
 							<th dt-sorting="submissionTimestamp" sort-field="sortingField" sort-direction="sortingDirection">Opened</th>
 							<th dt-sorting="closedTimestamp" sort-field="sortingField" sort-direction="sortingDirection">Closed</th>
 							<th dt-sorting="employeeId" sort-field="sortingField" sort-direction="sortingDirection">Staff</th>
@@ -37,28 +58,23 @@
 					</thead>
 				  	<tbody>
 						<tr ng-repeat="issue in displayIssues" class="issue-status-{{issue.status}}">
-							<td>{{issue.issueId}}</td>
-							<td><span class="data-issue-title">{{issue.title}}</span>
-								<span class="visible-xs data-customer-name">{{issue.customerName}}</span>
-								<span class="visible-xs data-customer-email">{{issue.customerEmail}}</span>
-							</td>
-							<td class="hidden-xs">
-								<span class="data-customer-name">{{issue.customerName}}</span>
-								<span class="data-customer-email">{{issue.customerEmail}}</span>
-							</td>
-							<td class="hidden-xs">{{issue.status}}</td>
-							<td>{{issue.submissionTimestamp*1000|date:'yyyy-MM-dd HH:mm'}}</td>
-								<td ng-if="issue.closedTimestamp">{{issue.closedTimestamp*1000|date:'yyyy-MM-dd HH:mm'}}</td>
-								<td ng-if="!issue.closedTimestamp">No</td>
-							<td>{{issue.employeeName}}</td>
+							<td data-th="Issue Id">{{issue.issueId}}</td>
+							<td data-th="Title">{{issue.title}}</td>
+							<td data-th="Customer">{{issue.customerName}}</span>
+							<td data-th="Email">{{issue.customerEmail}}</td>
+							<td data-th="Statis">{{issue.status}}</td>
+							<td data-th="Opened">{{issue.submissionTimestamp*1000|date:'yyyy-MM-dd HH:mm'}}</td>
+								<td data-th="Closed" ng-if="issue.closedTimestamp">{{issue.closedTimestamp*1000|date:'yyyy-MM-dd HH:mm'}}</td>
+								<td data-th="Closed" ng-if="!issue.closedTimestamp">No</td>
+							<td data-th="Employee">{{issue.employeeName}}</td>
 						</tr>
 				  	</tbody>
-				  	<tfoot>
+				  	<tfoot class="hidden-xs">
 						<tr>
 							<th>Id</th>
 							<th>Title</th>
-							<th class="hidden-xs">Customer</th>
-							<th class="hidden-xs">Status</th>
+							<th>Customer</th>
+							<th>Status</th>
 							<th>Opened</th>
 							<th>Closed</th>
 							<th>Staff</th>
