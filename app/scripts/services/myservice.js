@@ -25,20 +25,51 @@ function ($interval, $rootScope, cachedIO) {
     this.allEmployees = null;
     this.allCities = null;
 
-    var pollFiles = {
-        issues: false,
-        cities: false,
-        customers: false,
-        employees: false
+    var pollDisabler,
+        pollFiles = {
+            issues: false,
+            cities: false,
+            customers: false,
+            employees: false
+        };
+
+    var pollFunction = function(){
+        if(pollFiles.customers){
+            service.getAllCustomers();
+        }
+        if(pollFiles.employees){
+            service.getAllEmployees();
+        }
+        if(pollFiles.cities){
+            service.getAllCities();
+        }
+        if(pollFiles.issues){
+            service.getAllIssues();
+        }
     };
 
-    this.setInterestedData = function(keys){
-        if(!keys) keys = [];
+    function pollEnable(){
+        pollDisabler = $interval(pollFunction, 1000);
+    }
 
+    this.setInterestedData = function(keys){
+        if(!keys) {
+            keys = [];
+        }
+        var anyPositive = false;
         for(var k in pollFiles){
             pollFiles[k] = keys.indexOf(k)>=0;
+            if(pollFiles[k]){
+                anyPositive = true;
+            }
         }
-    }
+        if(!anyPositive && pollDisabler){
+            pollDisabler();
+            pollDisabler = null;
+        }else{
+            pollEnable();
+        }
+    };
 
     this.getAllIssues = function(){
         cachedIO.get(issuesPath, false, !!this.allIssues.length)
@@ -86,20 +117,7 @@ function ($interval, $rootScope, cachedIO) {
     $rootScope.$on('citiesUpdated', checkCityNEmployees);
     $rootScope.$on('employeesUpdated', checkCityNEmployees);
 
-
-    //init
-
     //utils
-    $interval(function(){
-        if(pollFiles.customers)
-            service.getAllCustomers();
-        if(pollFiles.employees)
-            service.getAllEmployees();
-        if(pollFiles.cities)
-            service.getAllCities();
-        if(pollFiles.issues)
-            service.getAllIssues();
-    },1000);
 
     function array2object(data, keyField){
         var ret = {};
