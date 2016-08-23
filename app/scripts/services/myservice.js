@@ -25,6 +25,21 @@ function ($interval, $rootScope, cachedIO) {
     this.allEmployees = null;
     this.allCities = null;
 
+    var pollFiles = {
+        issues: false,
+        cities: false,
+        customers: false,
+        employees: false
+    };
+
+    this.setInterestedData = function(keys){
+        if(!keys) keys = [];
+
+        for(var k in pollFiles){
+            pollFiles[k] = keys.indexOf(k)>=0;
+        }
+    }
+
     this.getAllIssues = function(){
         cachedIO.get(issuesPath, false, !!this.allIssues.length)
         .then(function(data){
@@ -76,10 +91,14 @@ function ($interval, $rootScope, cachedIO) {
 
     //utils
     $interval(function(){
-        service.getAllCustomers();
-        service.getAllEmployees();
-        service.getAllCities();
-        service.getAllIssues();
+        if(pollFiles.customers)
+            service.getAllCustomers();
+        if(pollFiles.employees)
+            service.getAllEmployees();
+        if(pollFiles.cities)
+            service.getAllCities();
+        if(pollFiles.issues)
+            service.getAllIssues();
     },1000);
 
     function array2object(data, keyField){

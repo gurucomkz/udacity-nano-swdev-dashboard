@@ -13,6 +13,7 @@ angular.module('dashboardApp')
     '$rootScope',
     'myService',
 function ($scope , $rootScope, myService) {
+    myService.setInterestedData(['issues', 'customers']);
     $scope.stats = {
         openIssues: 0,
         activeCustomers: 0

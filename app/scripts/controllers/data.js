@@ -13,6 +13,7 @@ angular.module('dashboardApp')
     'myService',
     '$rootScope',
 function ($scope, myService, $rootScope) {
+    myService.setInterestedData(['issues']);
     var issues = myService.allIssues,
         filtered = [];
 

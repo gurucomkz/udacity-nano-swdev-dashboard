@@ -13,6 +13,8 @@ angular.module('dashboardApp')
     '$rootScope',
     'myService',
 function ($scope, $rootScope, myService) {
+    myService.setInterestedData(['cities', 'employees']);
+
     $scope.cities = [];
     $scope.stats = {};
     $scope.selectedCity = null;
