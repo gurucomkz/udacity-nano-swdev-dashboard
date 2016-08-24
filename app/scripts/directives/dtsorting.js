@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc directive
  * @name dashboardApp.directive:dtSorting
@@ -8,6 +6,8 @@
  */
 angular.module('dashboardApp')
 .directive('dtSorting', function(){
+    'use strict';
+
     return {
         restrict: 'A',
         scope: {

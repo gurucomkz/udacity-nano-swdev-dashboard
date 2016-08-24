@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc service
  * @name dashboardApp.cachedIO
@@ -14,6 +12,8 @@ angular.module('dashboardApp')
     'cacheStorage',
     'appSettings',
 function ($http, $q, cacheStorage, appSettings) {
+    'use strict';
+
     var me = this;
 
     this.getCachedFile = function(fname)

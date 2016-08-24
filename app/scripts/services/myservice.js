@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc service
  * @name dashboardApp.myService
@@ -14,6 +12,8 @@ angular.module('dashboardApp')
     '$rootScope',
     'cachedIO',
 function ($interval, $rootScope, cachedIO) {
+    'use strict';
+
     var service = this;
     var issuesPath = 'data/issues.json';
     var employeesPath = 'data/employees.csv';

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc function
  * @name dashboardApp.controller:AboutCtrl
@@ -13,6 +11,8 @@ angular.module('dashboardApp')
     'myService',
     '$rootScope',
 function ($scope, myService, $rootScope) {
+    'use strict';
+
     myService.setInterestedData(['issues']);
     var issues = myService.allIssues,
         filtered = [];

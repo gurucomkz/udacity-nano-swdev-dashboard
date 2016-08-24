@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc service
  * @name dashboardApp.cacheStorage
@@ -12,6 +10,8 @@ angular.module('dashboardApp')
     '$q',
 
 function ($q) {
+    'use strict';
+
     var storageKey = 'dashboardStorage';
 
     function _checkStorage(){

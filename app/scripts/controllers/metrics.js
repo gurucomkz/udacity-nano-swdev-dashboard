@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc function
  * @name dashboardApp.controller:MetricsCtrl
@@ -13,6 +11,8 @@ angular.module('dashboardApp')
     '$rootScope',
     'myService',
 function ($scope , $rootScope, myService) {
+    'use strict';
+
     myService.setInterestedData(['issues', 'customers']);
     $scope.stats = {
         openIssues: 0,

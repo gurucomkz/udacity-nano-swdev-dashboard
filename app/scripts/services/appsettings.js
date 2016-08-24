@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc service
  * @name dashboardApp.AppSettings
@@ -9,6 +7,7 @@
  */
 angular.module('dashboardApp')
 .factory('appSettings', [function() {
+    'use strict';
 
     var me,
         _settingsKey = 'dashboardSettings',

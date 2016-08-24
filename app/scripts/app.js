@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc overview
  * @name dashboardApp
@@ -17,6 +15,8 @@ angular
 .config([
     '$routeProvider',
 function ($routeProvider) {
+    'use strict';
+
     $routeProvider
     .when('/', {
         templateUrl: 'views/main.html',
