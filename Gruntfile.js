@@ -31,6 +31,9 @@ module.exports = function (grunt) {
     // Project settings
     yeoman: appConfig,
 
+    exec:{
+        generate: 'php dataGenerator/generator.php'
+    },
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -442,6 +445,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'postcss:server',
       'connect:livereload',
+      'exec:generate',
       'watch'
     ]);
   });
@@ -471,6 +475,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'exec:generate',
     'cdnify',
     'cssmin',
     'uglify',
@@ -483,6 +488,7 @@ module.exports = function (grunt) {
     'newer:jshint',
     'newer:jscs',
     'test',
+    'exec:generate',
     'build'
   ]);
 };
